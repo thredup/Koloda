@@ -12,7 +12,7 @@ let package = Package(
         // Products define the executables and libraries a package produces, and make them visible to other packages.
         .library(
             name: "Koloda",
-            targets: ["Koloda", "pop"]
+            targets: ["Koloda"]
         ),
     ],
     dependencies: [
@@ -29,6 +29,9 @@ let package = Package(
             ],
             path: "Pod/Classes/KolodaView"
         ),
-        .binaryTarget(name: "pop", path: "pop/pop.xcframework")
+        .binaryTarget(
+            name: "pop",
+            path: "pop/pop.xcframework"
+        )
     ]
 )

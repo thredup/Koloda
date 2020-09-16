@@ -22,9 +22,11 @@
 #import <pop/POPBasicAnimation.h>
 #import <pop/POPCustomAnimation.h>
 #import <pop/POPDecayAnimation.h>
+#import <pop/POPDefines.h>
 #import <pop/POPGeometry.h>
 #import <pop/POPLayerExtras.h>
 #import <pop/POPPropertyAnimation.h>
 #import <pop/POPSpringAnimation.h>
+#import <pop/POPVector.h>
 
 #endif /* POP_POP_H */
