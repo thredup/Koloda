@@ -1,0 +1,189 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.3 (swiftlang-1200.0.29.2 clang-1200.0.30.1)
+// swift-module-flags: -target arm64-apple-ios9.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name Koloda
+import CoreGraphics
+import Foundation
+@_exported import Koloda
+import Swift
+import UIKit
+import pop
+public enum DragSpeed : Foundation.TimeInterval {
+  case slow
+  case moderate
+  case `default`
+  case fast
+  public typealias RawValue = Foundation.TimeInterval
+  public init?(rawValue: Foundation.TimeInterval)
+  public var rawValue: Foundation.TimeInterval {
+    get
+  }
+}
+@objc @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers public class DraggableCardView : UIKit.UIView, UIKit.UIGestureRecognizerDelegate {
+  public var rotationMax: CoreGraphics.CGFloat
+  public var rotationAngle: CoreGraphics.CGFloat
+  public var scaleMin: CoreGraphics.CGFloat
+  public var contentView: UIKit.UIView? {
+    get
+  }
+  @objc required dynamic public init?(coder aDecoder: Foundation.NSCoder)
+  @objc deinit
+  @objc public func gestureRecognizer(_ gestureRecognizer: UIKit.UIGestureRecognizer, shouldReceive touch: UIKit.UITouch) -> Swift.Bool
+  @objc override dynamic public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIKit.UIGestureRecognizer) -> Swift.Bool
+}
+public enum VisibleCardsDirection : Swift.Int {
+  case top, bottom
+  public typealias RawValue = Swift.Int
+  public init?(rawValue: Swift.Int)
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+public protocol KolodaViewDataSource : AnyObject {
+  func kolodaNumberOfCards(_ koloda: Koloda.KolodaView) -> Swift.Int
+  func kolodaSpeedThatCardShouldDrag(_ koloda: Koloda.KolodaView) -> Koloda.DragSpeed
+  func koloda(_ koloda: Koloda.KolodaView, viewForCardAt index: Swift.Int) -> UIKit.UIView
+  func koloda(_ koloda: Koloda.KolodaView, viewForCardOverlayAt index: Swift.Int) -> Koloda.OverlayView?
+}
+extension KolodaViewDataSource {
+  public func koloda(_ koloda: Koloda.KolodaView, viewForCardOverlayAt index: Swift.Int) -> Koloda.OverlayView?
+  public func kolodaSpeedThatCardShouldDrag(_ koloda: Koloda.KolodaView) -> Koloda.DragSpeed
+}
+public protocol KolodaViewDelegate : AnyObject {
+  func koloda(_ koloda: Koloda.KolodaView, allowedDirectionsForIndex index: Swift.Int) -> [Koloda.SwipeResultDirection]
+  func koloda(_ koloda: Koloda.KolodaView, shouldSwipeCardAt index: Swift.Int, in direction: Koloda.SwipeResultDirection) -> Swift.Bool
+  func koloda(_ koloda: Koloda.KolodaView, didSwipeCardAt index: Swift.Int, in direction: Koloda.SwipeResultDirection)
+  func kolodaDidRunOutOfCards(_ koloda: Koloda.KolodaView)
+  func koloda(_ koloda: Koloda.KolodaView, didSelectCardAt index: Swift.Int)
+  func kolodaShouldApplyAppearAnimation(_ koloda: Koloda.KolodaView) -> Swift.Bool
+  func kolodaShouldMoveBackgroundCard(_ koloda: Koloda.KolodaView) -> Swift.Bool
+  func kolodaShouldTransparentizeNextCard(_ koloda: Koloda.KolodaView) -> Swift.Bool
+  func koloda(_ koloda: Koloda.KolodaView, draggedCardWithPercentage finishPercentage: CoreGraphics.CGFloat, in direction: Koloda.SwipeResultDirection)
+  func kolodaDidResetCard(_ koloda: Koloda.KolodaView)
+  func kolodaSwipeThresholdRatioMargin(_ koloda: Koloda.KolodaView) -> CoreGraphics.CGFloat?
+  func koloda(_ koloda: Koloda.KolodaView, didShowCardAt index: Swift.Int)
+  func koloda(_ koloda: Koloda.KolodaView, didRewindTo index: Swift.Int)
+  func koloda(_ koloda: Koloda.KolodaView, shouldDragCardAt index: Swift.Int) -> Swift.Bool
+  func kolodaPanBegan(_ koloda: Koloda.KolodaView, card: Koloda.DraggableCardView)
+  func kolodaPanFinished(_ koloda: Koloda.KolodaView, card: Koloda.DraggableCardView)
+}
+extension KolodaViewDelegate {
+  public func koloda(_ koloda: Koloda.KolodaView, shouldSwipeCardAt index: Swift.Int, in direction: Koloda.SwipeResultDirection) -> Swift.Bool
+  public func koloda(_ koloda: Koloda.KolodaView, allowedDirectionsForIndex index: Swift.Int) -> [Koloda.SwipeResultDirection]
+  public func koloda(_ koloda: Koloda.KolodaView, didSwipeCardAt index: Swift.Int, in direction: Koloda.SwipeResultDirection)
+  public func kolodaDidRunOutOfCards(_ koloda: Koloda.KolodaView)
+  public func koloda(_ koloda: Koloda.KolodaView, didSelectCardAt index: Swift.Int)
+  public func kolodaShouldApplyAppearAnimation(_ koloda: Koloda.KolodaView) -> Swift.Bool
+  public func kolodaShouldMoveBackgroundCard(_ koloda: Koloda.KolodaView) -> Swift.Bool
+  public func kolodaShouldTransparentizeNextCard(_ koloda: Koloda.KolodaView) -> Swift.Bool
+  public func koloda(_ koloda: Koloda.KolodaView, draggedCardWithPercentage finishPercentage: CoreGraphics.CGFloat, in direction: Koloda.SwipeResultDirection)
+  public func kolodaDidResetCard(_ koloda: Koloda.KolodaView)
+  public func kolodaSwipeThresholdRatioMargin(_ koloda: Koloda.KolodaView) -> CoreGraphics.CGFloat?
+  public func koloda(_ koloda: Koloda.KolodaView, didShowCardAt index: Swift.Int)
+  public func koloda(_ koloda: Koloda.KolodaView, didRewindTo index: Swift.Int)
+  public func koloda(_ koloda: Koloda.KolodaView, shouldDragCardAt index: Swift.Int) -> Swift.Bool
+  public func kolodaPanBegan(_ koloda: Koloda.KolodaView, card: Koloda.DraggableCardView)
+  public func kolodaPanFinished(_ koloda: Koloda.KolodaView, card: Koloda.DraggableCardView)
+}
+@objc @_inheritsConvenienceInitializers open class KolodaView : UIKit.UIView {
+  public var alphaValueOpaque: CoreGraphics.CGFloat
+  public var alphaValueTransparent: CoreGraphics.CGFloat
+  public var alphaValueSemiTransparent: CoreGraphics.CGFloat
+  public var shouldPassthroughTapsWhenNoVisibleCards: Swift.Bool
+  public var rotationMax: CoreGraphics.CGFloat?
+  public var rotationAngle: CoreGraphics.CGFloat?
+  public var scaleMin: CoreGraphics.CGFloat?
+  public var appearanceAnimationDuration: Foundation.TimeInterval
+  public var backgroundCardFrameAnimationDuration: Foundation.TimeInterval
+  public var reverseAnimationDuration: Foundation.TimeInterval
+  public var countOfVisibleCards: Swift.Int
+  public var backgroundCardsTopMargin: CoreGraphics.CGFloat
+  public var backgroundCardsScalePercent: CoreGraphics.CGFloat
+  public var visibleCardsDirection: Koloda.VisibleCardsDirection
+  public var isLoop: Swift.Bool
+  public var currentCardIndex: Swift.Int {
+    get
+  }
+  public var countOfCards: Swift.Int {
+    get
+  }
+  weak public var dataSource: Koloda.KolodaViewDataSource? {
+    get
+    set
+  }
+  weak public var delegate: Koloda.KolodaViewDelegate?
+  public var animator: Koloda.KolodaViewAnimator {
+    get
+    set
+  }
+  public var isAnimating: Swift.Bool {
+    get
+  }
+  public var isRunOutOfCards: Swift.Bool {
+    get
+  }
+  @objc override dynamic open func layoutSubviews()
+  public func layoutDeck()
+  open func frameForCard(at index: Swift.Int) -> CoreGraphics.CGRect
+  public func applyAppearAnimationIfNeeded()
+  public func revertAction(direction: Koloda.SwipeResultDirection? = nil)
+  public func reconfigureCards()
+  public func reloadData()
+  public func swipe(_ direction: Koloda.SwipeResultDirection, force: Swift.Bool = false)
+  public func resetCurrentCardIndex()
+  public func viewForCard(at index: Swift.Int) -> UIKit.UIView?
+  @objc override dynamic open func point(inside point: CoreGraphics.CGPoint, with event: UIKit.UIEvent?) -> Swift.Bool
+  public func insertCardAtIndexRange(_ indexRange: Swift.CountableRange<Swift.Int>, animated: Swift.Bool = true)
+  public func removeCardInIndexRange(_ indexRange: Swift.CountableRange<Swift.Int>, animated: Swift.Bool)
+  public func reloadCardsInIndexRange(_ indexRange: Swift.CountableRange<Swift.Int>)
+  @objc deinit
+  @objc override dynamic public init(frame: CoreGraphics.CGRect)
+  @objc required dynamic public init?(coder: Foundation.NSCoder)
+}
+open class KolodaViewAnimator {
+  public typealias AnimationCompletionBlock = ((Swift.Bool) -> Swift.Void)?
+  public init(koloda: Koloda.KolodaView)
+  open func animateAppearance(_ duration: Foundation.TimeInterval, completion: Koloda.KolodaViewAnimator.AnimationCompletionBlock = nil)
+  open func applyReverseAnimation(_ card: Koloda.DraggableCardView, direction: Koloda.SwipeResultDirection?, duration: Foundation.TimeInterval, completion: Koloda.KolodaViewAnimator.AnimationCompletionBlock = nil)
+  open func applyScaleAnimation(_ card: Koloda.DraggableCardView, scale: CoreGraphics.CGSize, frame: CoreGraphics.CGRect, duration: Foundation.TimeInterval, completion: Koloda.KolodaViewAnimator.AnimationCompletionBlock = nil)
+  open func applyAlphaAnimation(_ card: Koloda.DraggableCardView, alpha: CoreGraphics.CGFloat, duration: Foundation.TimeInterval = 0.2, completion: Koloda.KolodaViewAnimator.AnimationCompletionBlock = nil)
+  open func applyInsertionAnimation(_ cards: [Koloda.DraggableCardView], completion: Koloda.KolodaViewAnimator.AnimationCompletionBlock = nil)
+  open func applyRemovalAnimation(_ cards: [Koloda.DraggableCardView], completion: Koloda.KolodaViewAnimator.AnimationCompletionBlock = nil)
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers open class OverlayView : UIKit.UIView {
+  open var overlayState: Koloda.SwipeResultDirection?
+  open func update(progress: CoreGraphics.CGFloat)
+  @objc deinit
+  @objc override dynamic public init(frame: CoreGraphics.CGRect)
+  @objc required dynamic public init?(coder: Foundation.NSCoder)
+}
+public enum SwipeResultDirection : Swift.String {
+  case left
+  case right
+  case up
+  case down
+  case topLeft
+  case topRight
+  case bottomLeft
+  case bottomRight
+  public typealias RawValue = Swift.String
+  public init?(rawValue: Swift.String)
+  public var rawValue: Swift.String {
+    get
+  }
+}
+extension SwipeResultDirection : Swift.CaseIterable {
+  public typealias AllCases = [Koloda.SwipeResultDirection]
+  public static var allCases: [Koloda.SwipeResultDirection] {
+    get
+  }
+}
+extension Koloda.DragSpeed : Swift.Equatable {}
+extension Koloda.DragSpeed : Swift.Hashable {}
+extension Koloda.DragSpeed : Swift.RawRepresentable {}
+extension Koloda.VisibleCardsDirection : Swift.Equatable {}
+extension Koloda.VisibleCardsDirection : Swift.Hashable {}
+extension Koloda.VisibleCardsDirection : Swift.RawRepresentable {}
+extension Koloda.SwipeResultDirection : Swift.Equatable {}
+extension Koloda.SwipeResultDirection : Swift.Hashable {}
+extension Koloda.SwipeResultDirection : Swift.RawRepresentable {}
